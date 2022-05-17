@@ -168,6 +168,17 @@ class MY_Model extends CI_Model
 	}
 
 
+	function insert_batch($array)
+	{
+		$insert = $this->db->insert_batch($this->_table_name, $array);
+		if ($insert) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+
 
 	function update($data, $id = NULL)
 	{

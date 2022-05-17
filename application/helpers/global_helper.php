@@ -369,9 +369,8 @@ function mydate($date, $format)
   return $date_format;
 }
 
-function get_id_sekolah($kode)
+function hash_password($pass)
 {
-  $ci = &get_instance();
-  $result = $ci->db->get_where('sekolah', ['kode' => $kode])->row();
-  return $result->id_sekolah;
+  $data = hash('sha256', $pass);
+  return $data;
 }

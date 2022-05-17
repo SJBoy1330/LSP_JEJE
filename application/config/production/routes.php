@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
@@ -103,7 +103,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth/controller_ctl';
 
 
+// ROUTE AUTH
+$route['auth']  = 'auth/controller_ctl';
+
+$route['auth/(:any)'] = 'auth/controller_ctl/$1';
+
+$route['auth/(:any)/(:any)'] = 'auth/controller_ctl/$1/$2';
+
+
+// ROUTE USER
+
+$route['user']  = 'user/controller_ctl';
+
+$route['user/(:any)'] = 'user/controller_ctl/$1';
+
+$route['user/(:any)/(:any)'] = 'user/controller_ctl/$1/$2';
+
+
+$route['func_user']  = 'user/function_ctl';
+
+$route['func_user/(:any)'] = 'user/function_ctl/$1';
+
+$route['func_user/(:any)/(:any)'] = 'user/function_ctl/$1/$2';
+
+
+// ROUTE MENU
+
+$route['menu']  = 'menu/controller_ctl';
+
+$route['menu/(:any)'] = 'menu/controller_ctl/$1';
+
+$route['menu/(:any)/(:any)'] = 'menu/controller_ctl/$1/$2';
+
+
+$route['func_menu']  = 'menu/function_ctl';
+
+$route['func_menu/(:any)'] = 'menu/function_ctl/$1';
+
+$route['func_menu/(:any)/(:any)'] = 'menu/function_ctl/$1/$2';
+
+
+
+
+// ROUTE TRANSAKSI
+
+$route['transaksi']  = 'transaksi/controller_ctl';
+
+$route['transaksi/(:any)'] = 'transaksi/controller_ctl/$1';
+
+$route['transaksi/(:any)/(:any)'] = 'transaksi/controller_ctl/$1/$2';
+
+
+$route['func_transaksi']  = 'transaksi/function_ctl';
+
+$route['func_transaksi/(:any)'] = 'transaksi/function_ctl/$1';
+
+$route['func_transaksi/(:any)/(:any)'] = 'transaksi/function_ctl/$1/$2';
+
+
 $route['404_override'] = '';
 
 $route['translate_uri_dashes'] = FALSE;
-
