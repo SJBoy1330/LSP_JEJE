@@ -120,11 +120,11 @@ $route['user/(:any)'] = 'user/controller_ctl/$1';
 $route['user/(:any)/(:any)'] = 'user/controller_ctl/$1/$2';
 
 
-$route['func_user']  = 'user/function_ctl';
+$route['function_user']  = 'user/function_ctl';
 
-$route['func_user/(:any)'] = 'user/function_ctl/$1';
+$route['function_user/(:any)'] = 'user/function_ctl/$1';
 
-$route['func_user/(:any)/(:any)'] = 'user/function_ctl/$1/$2';
+$route['function_user/(:any)/(:any)'] = 'user/function_ctl/$1/$2';
 
 
 // ROUTE MENU
@@ -136,11 +136,11 @@ $route['menu/(:any)'] = 'menu/controller_ctl/$1';
 $route['menu/(:any)/(:any)'] = 'menu/controller_ctl/$1/$2';
 
 
-$route['func_menu']  = 'menu/function_ctl';
+$route['function_menu']  = 'menu/function_ctl';
 
-$route['func_menu/(:any)'] = 'menu/function_ctl/$1';
+$route['function_menu/(:any)'] = 'menu/function_ctl/$1';
 
-$route['func_menu/(:any)/(:any)'] = 'menu/function_ctl/$1/$2';
+$route['function_menu/(:any)/(:any)'] = 'menu/function_ctl/$1/$2';
 
 
 
@@ -154,11 +154,11 @@ $route['transaksi/(:any)'] = 'transaksi/controller_ctl/$1';
 $route['transaksi/(:any)/(:any)'] = 'transaksi/controller_ctl/$1/$2';
 
 
-$route['func_transaksi']  = 'transaksi/function_ctl';
+$route['function_transaksi']  = 'transaksi/function_ctl';
 
-$route['func_transaksi/(:any)'] = 'transaksi/function_ctl/$1';
+$route['function_transaksi/(:any)'] = 'transaksi/function_ctl/$1';
 
-$route['func_transaksi/(:any)/(:any)'] = 'transaksi/function_ctl/$1/$2';
+$route['function_transaksi/(:any)/(:any)'] = 'transaksi/function_ctl/$1/$2';
 
 
 $route['404_override'] = '';

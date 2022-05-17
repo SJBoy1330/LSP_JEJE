@@ -7,8 +7,8 @@ class Function_ctl extends MY_Controller
 	{
 		// Load the constructer from MY_Controller
 		parent::__construct();
-		if ($this->session->userdata('cafe_id_user')) {
-			$this->id_user = $this->session->userdata('cafe_id_user');
+		if ($this->session->userdata('id_user')) {
+			$this->id_user = $this->session->userdata('id_user');
 		} else {
 			$this->id_user = 1;
 		}
@@ -21,22 +21,22 @@ class Function_ctl extends MY_Controller
 
 	public function tambah_user()
 	{
-		$nama = 'Saka dana asmara';
+		$nama = 'Sidatata Al Jennar';
 		$arr['username'] 	= 'admin';
 		$arr['nama'] 		= $nama;
 		$arr['password'] 		= hash_password('admin' . '12345');
-		$arr['role'] 		= 1;
+		$arr['id_role'] 		= 1;
 		$arr['aktif']		= 'Y';
 		$arr['online']		= 'Y';
-		$arr['online_akses']	= date('Y-m-d H:i:s');
+		$arr['last_access']	= date('Y-m-d H:i:s');
 
 		$insert = $this->user_m->insert($arr);
 		if ($insert) {
 			$log['id_user'] = $this->id_user;
-			$log['log_aktifitas'] = 'Membuat user baru dengan nama : <b>' . $nama . '</b>';
+			$log['riwayat'] = 'Membuat user baru dengan nama : <b>' . $nama . '</b>';
 			$log['tanggal'] = date('Y-m-d H:i:s');
 
-			$insert_log = $this->log_aktifitas_m->insert($log);
+			$insert_log = $this->riwayat_m->insert($log);
 			if ($insert_log) {
 				echo 'Berhasil melakukan insert (log berhasil di simpan)';
 			} else {

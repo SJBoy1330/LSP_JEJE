@@ -158,7 +158,7 @@ $db['default'] = array(
 
 	'password' => '',
 
-	'database' => 'grafika_cafe_saka',
+	'database' => 'grafika_cafe_jeje',
 
 	'dbdriver' => 'mysqli',
 

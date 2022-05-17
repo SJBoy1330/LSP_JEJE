@@ -13,7 +13,7 @@ class Controller_ctl extends MY_Controller
 		foreach ($arrVar as $var) {
 			$$var = $this->input->post($var);
 			if (!$$var) {
-				$data['required'][] = ['req_' . $var, $value . ' tidak boleh kosong !'];
+				$data['required'][] = ['req_' . $var, $var . ' tidak boleh kosong !'];
 				$arrAccess[] = false;
 			} else {
 				$arrAccess[] = true;
