@@ -4,6 +4,9 @@ class Controller_ctl extends MY_Controller
 {
 	public function index()
 	{
+		if ($this->session->userdata('id_user')) {
+			redirect('dashboard');
+		}
 		$this->load->view('index');
 	}
 
@@ -25,7 +28,8 @@ class Controller_ctl extends MY_Controller
 			if ($cek_user) {
 				if (hash_password($username . $password) == $cek_user->password) {
 
-					$this->session->set_userdata('cafe_id_user', $cek_password->id_user);
+					$this->session->set_userdata('id_user', $cek_user->id_user);
+					$this->session->set_userdata('id_role', $cek_user->id_role);
 
 					$data['status'] = TRUE;
 					$data['alert']['title'] = 'PEMBERITAHUAN';
@@ -52,5 +56,14 @@ class Controller_ctl extends MY_Controller
 			echo json_encode($data);
 			exit;
 		}
+	}
+
+
+	public function logout()
+	{
+		$this->session->unset_userdata('id_user');
+		$this->session->unset_userdata('id_role');
+
+		redirect('auth');
 	}
 }

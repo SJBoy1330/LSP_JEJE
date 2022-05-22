@@ -1,9 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Controller_ctl extends MY_Controller
+class Controller_ctl extends MY_Admin
 {
 	public function index()
 	{
-		$this->load->view('index');
+		$mydata['title'] = 'Managaemen Menu';
+		$this->data['content'] = $this->load->view('index', $mydata, TRUE);
+		$this->display();
 	}
 }

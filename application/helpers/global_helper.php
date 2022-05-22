@@ -374,3 +374,19 @@ function hash_password($pass)
   $data = hash('sha256', $pass);
   return $data;
 }
+
+
+function is_logged_in()
+{
+
+  $obj = &get_instance();
+
+  $base_url = $obj->config->item('base_url');
+
+  $ci = get_instance();
+
+
+  if (!$ci->session->userdata('id_user')) {
+    redirect('auth');
+  }
+}

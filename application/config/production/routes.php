@@ -111,6 +111,14 @@ $route['auth/(:any)'] = 'auth/controller_ctl/$1';
 $route['auth/(:any)/(:any)'] = 'auth/controller_ctl/$1/$2';
 
 
+// ROUTE AUTH
+$route['dashboard']  = 'dashboard/controller_ctl';
+
+$route['dashboard/(:any)'] = 'dashboard/controller_ctl/$1';
+
+$route['dashboard/(:any)/(:any)'] = 'dashboard/controller_ctl/$1/$2';
+
+
 // ROUTE USER
 
 $route['user']  = 'user/controller_ctl';
@@ -143,7 +151,20 @@ $route['function_menu/(:any)'] = 'menu/function_ctl/$1';
 $route['function_menu/(:any)/(:any)'] = 'menu/function_ctl/$1/$2';
 
 
+// ROUTE MENU
 
+$route['pengaturan']  = 'pengaturan/controller_ctl';
+
+$route['pengaturan/(:any)'] = 'pengaturan/controller_ctl/$1';
+
+$route['pengaturan/(:any)/(:any)'] = 'pengaturan/controller_ctl/$1/$2';
+
+
+$route['function_pengaturan']  = 'pengaturan/function_ctl';
+
+$route['function_pengaturan/(:any)'] = 'pengaturan/function_ctl/$1';
+
+$route['function_pengaturan/(:any)/(:any)'] = 'pengaturan/function_ctl/$1/$2';
 
 // ROUTE TRANSAKSI
 

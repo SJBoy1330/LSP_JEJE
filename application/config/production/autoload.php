@@ -265,4 +265,4 @@ $autoload['language'] = array();
 
 */
 
-$autoload['model'] = array('user_m', 'riwayat_m');
+$autoload['model'] = array('user_m', 'riwayat_m', 'role_m');

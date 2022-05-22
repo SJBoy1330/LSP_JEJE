@@ -4,21 +4,19 @@ class Controller_ctl extends MY_Admin
 {
 	public function index()
 	{
-		redirect('transaksi/kasir');
+		redirect('pengaturan/role');
 	}
-
-	public function kasir()
+	public function role()
 	{
-		$mydata['title'] = 'Kasir';
+		$mydata['title'] = 'Pengaturan role';
 		$this->data['content'] = $this->load->view('index', $mydata, TRUE);
 		$this->display();
 	}
 
-
-	public function laporan_pendapatan()
+	public function riwayat()
 	{
-		$mydata['title'] = 'Laporan Pendapatan';
-		$this->data['content'] = $this->load->view('laporan_pendapatan', $mydata, TRUE);
+		$mydata['title'] = 'Pengaturan riwayat';
+		$this->data['content'] = $this->load->view('riwayat', $mydata, TRUE);
 		$this->display();
 	}
 }
