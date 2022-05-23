@@ -8,7 +8,7 @@ function submit_form(element, id_form, num = 0) {
     var form = $('form')[num];
     var form_data = new FormData(form);
 
-    // console.log(form_data);
+    // console.log(form);
     $.ajax({
         url: url,
         method: method,

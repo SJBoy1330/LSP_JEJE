@@ -9,13 +9,13 @@ $(document).ready(function () {
             method: 'post',
             dataType: 'JSON',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $("#username").val(data.username);
                 $("#nama").val(data.nama);
-                // $("#role").val(data.role);
-                $('#select_role').val(data.id_role);
+                $("#id_user").val(data.id_user);
+                $('#role').val(data.id_role);
                 $('#select2-role-container').prop('title', data.nama_role);
-                $('select2-role-container').text(data.nama_role);
+                $('#select2-role-container').text(data.nama_role);
             }
         });
     });
@@ -26,11 +26,10 @@ $(document).ready(function () {
 });
 
 
-$(document).ready(function () {
-    setInterval(function () {
-        $('#auto_reload').load(BASE_URL + 'user #tabel_reload');
-        console.log('ok');
-    }, 2000);
+// $(document).ready(function () {
+//     setInterval(function () {
+//         $('#auto_reload').load(BASE_URL + 'user #tabel_reload');
+//     }, 2000);
 
 
-})
+// })

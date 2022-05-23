@@ -81,7 +81,7 @@ class Function_ctl extends MY_Controller
 	{
 		$id_user = $this->input->post('id_user');
 		$password = $this->input->post('password');
-		$arrVar['nama'] = 'Nama user';
+		$arrVar['edit_nama'] = 'Nama user';
 		$arrVar['username'] = 'Username';
 		$arrVar['role'] = 'Role';
 		foreach ($arrVar as $var => $value) {
@@ -96,14 +96,14 @@ class Function_ctl extends MY_Controller
 
 		if (!in_array(FALSE, $arrAccess)) {
 			$arr['username'] 	= $username;
-			$arr['nama'] 		= $nama;
+			$arr['nama'] 		= $edit_nama;
 			if ($password != NULL) {
 				$arr['password'] 	= hash_password($username . $password);
 			}
 			$arr['id_role'] 	= $role;
 
-			$insert = $this->user_m->update($arr, $id_user);
-			if ($insert) {
+			$update = $this->user_m->update($arr, $id_user);
+			if ($update) {
 				$log['id_user'] = $this->id_user;
 				$log['riwayat'] = 'Melakukan edit pada user dengan id : <b>' . $id_user . '</b>';
 				$log['tanggal'] = date('Y-m-d H:i:s');

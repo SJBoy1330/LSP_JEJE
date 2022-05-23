@@ -7,7 +7,7 @@
                         <span class="card-label fw-bolder fs-3 mb-1">Menu User</span>
                     </h3>
                     <div class="card-toolbar">
-                        <a href="#" id="tambah_user" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modalTambahUser">
+                        <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modalTambahUser">
                             <span class="svg-icon svg-icon-3">
                                 <i class="fa-duotone fa-plus"></i>
                             </span>Tambah User</a>
@@ -64,23 +64,17 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Aksi
+                                                    <button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Aksi
                                                         <span class="svg-icon svg-icon-5 m-0">
                                                             <i class="fa-solid fa-chevron-down"></i>
                                                         </span>
-                                                    </a>
+                                                    </button>
                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" data-id="<?= $row->id_user; ?>" data-bs-toggle="modal" data-bs-target="#modalEditUser" class="menu-link px-3 edit_user">Edit User</a>
                                                         </div>
                                                         <div class="menu-item px-3">
                                                             <a href="<?= base_url('function_user/delete_user/' . $row->id_user); ?>" class="menu-link px-3" data-kt-roles-table-filter="delete_row">Hapus User</a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <label class="form-check form-switch form-check-custom form-check-solid px-3">
-                                                                <input class="form-check-input" type="checkbox" value="1" checked="checked" />
-                                                                <span class="form-check-label fw-bold text-muted">On/Off</span>
-                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,27 +177,27 @@
                     <div class="text-start mb-13">
                         <h1 class="mb-3">Edit User</h1>
                     </div>
-                    <div class="row mb-6" id="req_username">
+                    <div class="row mb-6" id="req_edit_username">
                         <label class="col-form-label required fw-bold fs-6">Username</label>
-                        <input type="hidden" id="id_user">
+                        <input type="hidden" name="id_user" id="id_user">
                         <div class="col-lg-12">
                             <input type="text" name="username" id="username" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Isikan username" value="" autocomplete="off" />
                         </div>
                     </div>
-                    <div class="row mb-6" id="req_nama">
+                    <div class="row mb-6" id="req_edit_nama">
                         <label class="col-form-label required fw-bold fs-6">Nama Pegawai</label>
                         <div class="col-lg-12">
-                            <input type="text" name="nama" id="nama" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Isikan nama pegawai" value="" autocomplete="off" />
+                            <input type="text" name="edit_nama" id="nama" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Isikan nama pegawai" value="" autocomplete="off" />
                         </div>
                     </div>
-                    <div class="row mb-6" id="req_password">
+                    <div class="row mb-6" id="req_edit_password">
                         <label class=" col-form-label required fw-bold fs-6">Password</label>
                         <div class="col-lg-12">
                             <input type="password" name="password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Isikan password" value="" autocomplete="off" />
                         </div>
                     </div>
 
-                    <div class="row mb-6" id="req_role">
+                    <div class="row mb-6" id="req_edit_role">
                         <label class="col-from-label required fw-bold fs-6">Role</label>
                         <select class="form-select form-select-solid" id="role" name="role" data-kt-select2="true" data-placeholder="Pilih Role">
                             <?php if ($role) : ?>

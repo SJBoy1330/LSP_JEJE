@@ -7,11 +7,7 @@ class Function_ctl extends MY_Controller
     {
         // Load the constructer from MY_Controller
         parent::__construct();
-        if ($this->session->userdata('cafe_id_user')) {
-            $this->id_user = $this->session->userdata('cafe_id_user');
-        } else {
-            $this->id_user = 1;
-        }
+        $this->id_user = $this->session->userdata('cafe_id_user');
 
         // LOAD MODELS
         $this->load->model('menu_m');
@@ -24,56 +20,164 @@ class Function_ctl extends MY_Controller
 
     public function tambah_menu()
     {
-        $nama_menu = 'Nasi goreng malaysia';
-        $arr['nama_menu']           = $nama_menu;
-        $arr['harga_menu']          = 20000;
-        $arr['gambar_menu']         = 'gambar1.jpg';
-        $arr['pembuat_menu']        = $this->id_user;
-        $arr['create_date']         = date('Y-m-d H:i:s');
-        $arr['aktif']               = 'Y';
+        $arrVar['nama_menu'] = 'Nama menu';
+        $arrVar['harga'] = 'Harga menu';
 
-        $insert = $this->menu_m->insert($arr);
-        if ($insert) {
-            $log['id_user'] = $this->id_user;
-            $log['log_aktifitas'] = 'Membuat menu baru dengan nama : <b>' . $nama_menu . '</b>';
-            $log['tanggal'] = date('Y-m-d H:i:s');
-
-            $insert_log = $this->log_aktifitas_m->insert($log);
-            if ($insert_log) {
-                echo 'Berhasil melakukan insert (log berhasil di simpan)';
+        foreach ($arrVar as $var => $value) {
+            $$var = $this->input->post($var);
+            if (!$$var) {
+                $data['required'][] = ['req_' . $var, $value . ' tidak boleh kosong !'];
+                $arrAccess[] = false;
             } else {
-                echo 'Berhasil melakukan insert (log gagal di simpan)';
+                $arrAccess[] = true;
+            }
+        }
+
+        if (!$_FILES['gambar']['tmp_name']) {
+            $data['required'][] = ['req_gambar', 'Gambar tidak boleh kosong !'];
+            $arrAccess[] = false;
+        } else {
+            $arrAccess[] = true;
+            $gambar = $_FILES['gambar'];
+            if (!empty($gambar['tmp_name'])) {
+                $tujuan = APPPATH . '../data/';
+                $config['upload_path'] = $tujuan;
+                $config['allowed_types'] = 'png|jpg|jpeg';
+                $config['file_name'] = uniqid();
+                $config['file_ext_tolower'] = true;
+                $this->load->library('upload', $config);
+
+                $data = [];
+
+                if (!$this->upload->do_upload('gambar')) {
+
+                    $error = array('error' => $this->upload->display_errors());
+                    $data['required'][] = ['req_gambar', $error['error']];
+                    exit(0);
+                } else {
+                    $data = array('upload_data' => $this->upload->data());
+                    $arr['gambar'] = $data['upload_data']['file_name'];
+                }
+            }
+        }
+        if (!in_array(FALSE, $arrAccess)) {
+            $arr['nama']           = $nama_menu;
+            $arr['harga']          = $harga;
+            $arr['id_user']        = $this->id_user;
+            $arr['create_date']         = date('Y-m-d H:i:s');
+            $arr['aktif']               = 'Y';
+
+            $insert = $this->menu_m->insert($arr);
+            if ($insert) {
+                $log['id_user'] = $this->id_user;
+                $log['riwayat'] = 'Membuat menu baru dengan nama : <b>' . $nama_menu . '</b>';
+                $log['tanggal'] = date('Y-m-d H:i:s');
+
+                $insert_log = $this->riwayat_m->insert($log);
+                if ($insert_log) {
+                    $data['status'] = TRUE;
+                    $data['alert']['title'] = 'PEMBERITAHUAN';
+                    $data['alert']['message'] = 'Berhasil menambah menu !';
+                    echo json_encode($data);
+                    exit;
+                } else {
+                    $data['status'] = TRUE;
+                    $data['alert']['title'] = 'PEMBERITAHUAN';
+                    $data['alert']['message'] = 'Berhasil menambah menu !';
+                    echo json_encode($data);
+                    exit;
+                }
+            } else {
+                $data['status'] = FALSE;
+                $data['alert']['title'] = 'PERINGATAN';
+                $data['alert']['message'] = 'Gagal menambah menu !';
+                echo json_encode($data);
+                exit;
             }
         } else {
-            echo 'Gagal melakukan insert';
+            $data['status'] = FALSE;
+            echo json_encode($data);
+            exit;
         }
     }
 
-    public function edit_menu()
+
+    public function update_menu()
     {
-        $id_menu = 1;
-        $nama_menu = 'Nasi goreng malaysia';
-        $arr['nama_menu']           = $nama_menu;
-        $arr['harga_menu']          = 20000;
-        $arr['gambar_menu']         = 'gambar1.jpg';
-        $arr['pembuat_menu']        = $this->id_user;
-        $arr['create_date']         = date('Y-m-d H:i:s');
-        $arr['aktif']               = 'Y';
+        $arrVar['nama_menu'] = 'Nama menu';
+        $arrVar['harga'] = 'Harga menu';
+        $arrVar['id_menu'] = 'Id menu';
 
-        $update = $this->menu_m->update($arr, $id_menu);
-        if ($update) {
-            $log['id_user'] = $this->id_user;
-            $log['log_aktifitas'] = 'Melakukan update terhadap menu dengan id = <b>' . $id_menu . '</b>';
-            $log['tanggal'] = date('Y-m-d H:i:s');
-
-            $insert_log = $this->log_aktifitas_m->insert($log);
-            if ($insert_log) {
-                echo 'Berhasil melakukan update (log berhasil di simpan)';
+        foreach ($arrVar as $var => $value) {
+            $$var = $this->input->post($var);
+            if (!$$var) {
+                $data['required'][] = ['req_edit_' . $var, $value . ' tidak boleh kosong !'];
+                $arrAccess[] = false;
             } else {
-                echo 'Berhasil melakukan update (log gagal di simpan)';
+                $arrAccess[] = true;
+            }
+        }
+
+        $result = $this->menu_m->get_single(array('id_menu' => $id_menu));
+
+        $gambar = $_FILES['gambar'];
+        if (!empty($gambar['tmp_name'])) {
+            $tujuan = APPPATH . '../data/';
+            $config['upload_path'] = $tujuan;
+            $config['allowed_types'] = 'png|jpg|jpeg';
+            $config['file_name'] = uniqid();
+            $config['file_ext_tolower'] = true;
+            $this->load->library('upload', $config);
+
+            $data = [];
+
+            if (!$this->upload->do_upload('gambar')) {
+
+                $error = array('error' => $this->upload->display_errors());
+                $data['required'][] = ['req_edit_gambar', $error['error']];
+                $arrAccess[] = FALSE;
+                exit(0);
+            } else {
+                unlink($tujuan . $result->gambar);
+                $data = array('upload_data' => $this->upload->data());
+                $arr['gambar'] = $data['upload_data']['file_name'];
+            }
+        }
+        if (!in_array(FALSE, $arrAccess)) {
+            $arr['nama']           = $nama_menu;
+            $arr['harga']          = $harga;
+
+            $update = $this->menu_m->update($arr, $id_menu);
+            if ($update) {
+                $log['id_user'] = $this->id_user;
+                $log['riwayat'] = 'Merubah menu dengan id : <b>' . $id_menu . '</b>';
+                $log['tanggal'] = date('Y-m-d H:i:s');
+
+                $insert_log = $this->riwayat_m->insert($log);
+                if ($insert_log) {
+                    $data['status'] = TRUE;
+                    $data['alert']['title'] = 'PEMBERITAHUAN';
+                    $data['alert']['message'] = 'Berhasil merubah menu !';
+                    echo json_encode($data);
+                    exit;
+                } else {
+                    $data['status'] = TRUE;
+                    $data['alert']['title'] = 'PEMBERITAHUAN';
+                    $data['alert']['message'] = 'Berhasil merubah menu !';
+                    echo json_encode($data);
+                    exit;
+                }
+            } else {
+                $data['status'] = FALSE;
+                $data['alert']['title'] = 'PERINGATAN';
+                $data['alert']['message'] = 'Gagal merubah menu !';
+                echo json_encode($data);
+                exit;
             }
         } else {
-            echo 'Gagal melakukan update';
+            $data['status'] = FALSE;
+            echo json_encode($data);
+            exit;
         }
     }
 
@@ -117,21 +221,53 @@ class Function_ctl extends MY_Controller
                 $delete = $this->menu_m->delete($id_menu);
                 if ($delete) {
                     $log['id_user'] = $this->id_user;
-                    $log['log_aktifitas'] = 'Menghapus menu dengan nama = <b>' . $cek_menu->nama_menu . '</b>';
+                    $log['riwayat'] = 'Menghapus user dengan nama = <b>' . $cek_menu->nama . '</b>';
                     $log['tanggal'] = date('Y-m-d H:i:s');
 
-                    $insert_log = $this->log_aktifitas_m->insert($log);
+                    $insert_log = $this->riwayat_m->insert($log);
                     if ($insert_log) {
-                        echo 'Berhasil menghapus menu (log berhasil di simpan)';
+                        $this->session->set_flashdata('message', 'Data berhasil di hapus !');
+
+                        $this->session->set_flashdata('judul', 'PEMBERITAHUAN');
+
+                        $this->session->set_flashdata('icon', 'success');
+
+                        redirect('menu');
                     } else {
-                        echo 'Berhasil menghapus menu (log gagal di simpan)';
+                        $this->session->set_flashdata('message', 'Data berhasil di hapus !');
+
+                        $this->session->set_flashdata('judul', 'PEMBERITAHUAN');
+
+                        $this->session->set_flashdata('icon', 'success');
+
+                        redirect('menu');
                     }
                 } else {
-                    echo 'Gagal menghapus menu';
+                    $this->session->set_flashdata('message', 'Data gagal di hapus !');
+
+                    $this->session->set_flashdata('judul', 'PERINGATAN');
+
+                    $this->session->set_flashdata('icon', 'warning');
+
+                    redirect('menu');
                 }
             } else {
-                echo 'User tidak terdaftar';
+                $this->session->set_flashdata('message', 'menu tidak terdaftar !');
+
+                $this->session->set_flashdata('judul', 'PERINGATAN');
+
+                $this->session->set_flashdata('icon', 'warning');
+
+                redirect('menu');
             }
         }
+    }
+
+
+    public function get_modal()
+    {
+        $id_menu = $this->input->post('id_menu');
+        $result  = $this->menu_m->get_single(array('id_menu' => $id_menu));
+        echo json_encode($result);
     }
 }
